@@ -11,7 +11,16 @@ def fetch_stock_price(ticker):
     live_price = stock.history(period="1d")["Close"].iloc[-1]
     return live_price
 
-print(fetch_stock_price("AAPL"))
+
+
+stock_choice = input("Give the ticker symbol for stock: ")
+
+print(stock_choice, ":", fetch_stock_price(stock_choice), "\n")
+
+
+
+
+
 
 # Code to get live crypto price
 def fetch_crypto_price(symbol):
@@ -19,4 +28,5 @@ def fetch_crypto_price(symbol):
     response = requests.get(url)
     return response.json()[symbol]["usd"]
 
-print(fetch_crypto_price("bitcoin"))
+crypto_choice = input("Give the name for crypto: ")
+print(crypto_choice, ":", fetch_crypto_price(crypto_choice))
