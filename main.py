@@ -13,11 +13,20 @@ def fetch_stock_price(ticker):
 
 
 
-stock_choice = input("Give the ticker symbol for stock: ")
 
-print(stock_choice, ":", fetch_stock_price(stock_choice), "\n")
+# Initialize a list and add each stock or crypto in until you say "done"
+stock_list = [""]
 
+while True:
+    stock_choice = input("Give the ticker symbol for stock: ")   
+    if stock_choice.lower() == 'done': break
+    stock_list.append(stock_choice)
 
+for stock in stock_list:
+    try:
+        print(stock, "->", fetch_stock_price(stock))
+    except Exception as e:
+        print(f"Could not fetch price for {stock}. Error: {e}")
 
 
 
@@ -28,5 +37,16 @@ def fetch_crypto_price(symbol):
     response = requests.get(url)
     return response.json()[symbol]["usd"]
 
-crypto_choice = input("Give the name for crypto: ")
-print(crypto_choice, ":", fetch_crypto_price(crypto_choice))
+
+crypto_list = [""]
+
+while True:
+    crypto_choice = input("Give the name for crypto stock: ")   
+    if crypto_choice.lower() == 'done': break
+    crypto_list.append(crypto_choice)
+
+for crypto in crypto_list:
+    try:
+        print(crypto, "->", fetch_crypto_price(crypto))
+    except Exception as e:
+        print(f"Could not fetch price for {crypto}. Error: {e}")
