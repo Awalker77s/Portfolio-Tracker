@@ -15,12 +15,24 @@ def fetch_stock_price(ticker):
 
 
 # Initialize a list and add each stock or crypto in until you say "done"
-stock_list = [""]
+stock_list = []
+shares_list = []
+total_amount = 0
 
 while True:
-    stock_choice = input("Give the ticker symbol for stock: ")   
-    if stock_choice.lower() == 'done': break
+    stock_choice = input("Give the ticker symbol for stock(or type 'done' to finish): ")   
+    if stock_choice.lower() == 'done': 
+        break
     stock_list.append(stock_choice)
+    shares_s = input(f"What is the amount of shares you have in {stock_choice}: ")
+    try:
+        shares = int(shares_s)
+        total = shares * fetch_stock_price(stock_choice)
+        shares_list.append(total)
+    except ValueError:
+        print("Invalid number of shares. Please enter a valid integer.")
+    except Exception as e:
+        print(f"Could not fetch price for {stock_choice}. Error: {e}")
 
 for stock in stock_list:
     try:
@@ -28,7 +40,8 @@ for stock in stock_list:
     except Exception as e:
         print(f"Could not fetch price for {stock}. Error: {e}")
 
-
+    
+    #shares_c = input("What is the amount of shares you have in this crypto: ")
 
 
 # Code to get live crypto price
@@ -38,15 +51,21 @@ def fetch_crypto_price(symbol):
     return response.json()[symbol]["usd"]
 
 
-crypto_list = [""]
+crypto_list = []
 
 while True:
-    crypto_choice = input("Give the name for crypto stock: ")   
+    crypto_choice = input("Give the name for crypto(or type 'done' to finish): ")   
     if crypto_choice.lower() == 'done': break
     crypto_list.append(crypto_choice)
 
 for crypto in crypto_list:
     try:
-        print(crypto, "->", fetch_crypto_price(crypto))
+        print(f"{crypto} -> {fetch_crypto_price(crypto)}")
     except Exception as e:
         print(f"Could not fetch price for {crypto}. Error: {e}")
+
+
+for i, amount in enumerate(shares_list):
+    print(f"You have $ {amount} in {stock_list[i]}")
+    total_amount += amount
+print(f"Total amount of all stocks is $ {total_amount}")
