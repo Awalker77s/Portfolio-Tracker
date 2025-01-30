@@ -89,3 +89,5 @@ for i, amount in enumerate(shares_clist):
     print(f"You have $ {amount} in {crypto_list[i]}")
     total_camount += amount
 print(f"Total amount of all cryptos is $ {total_camount}")
+
+print(f"The total amount you have in both porfolios is: {total_amount + total_camount}")
